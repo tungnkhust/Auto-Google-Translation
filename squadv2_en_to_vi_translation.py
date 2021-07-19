@@ -54,7 +54,7 @@ def translate_squad_vie(squad_json):
     for item in squad_json:
         paragraphs = item['paragraphs']
         for para in paragraphs:
-            vi_context = translate(driver=driver,
+            vi_context = search_google_trans(driver=driver,
                                    wait=wait,
                                    source_language='en',
                                    target_language='vi',
@@ -68,7 +68,7 @@ def translate_squad_vie(squad_json):
             for qas in qas_list:
                 count_ques = count_ques + 1
                 print("ques: ", count_ques)
-                question = translate(driver=driver,
+                question = search_google_trans(driver=driver,
                                        wait=wait,
                                        source_language='en',
                                        target_language='vi',

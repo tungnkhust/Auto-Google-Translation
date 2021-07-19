@@ -2,6 +2,28 @@ import os
 import json
 
 
+def load_proxy(file_path, status_file=None):
+    statuses = None
+    if status_file:
+        statuses = {}
+        with open(status_file, 'r') as pf:
+            proxy_status = pf.readlines()
+            for line in proxy_status:
+                tmp = line.split(': ')
+                statuses[tmp[0]] = tmp[1].replace('\n', '')
+    with open(file_path, 'r') as pf:
+        lines = pf.readlines()
+        proxy_address = [line.split(' ')[0] for line in lines]
+        proxy_address_success = []
+        if statuses:
+            for proxy in proxy_address:
+                ip = proxy.split(':')[0]
+                if ip in statuses:
+                    if statuses[ip] == 'success':
+                        proxy_address_success.append(proxy)
+        return proxy_address_success
+
+
 def parse_string(text):
     """Replace the following characters in the text"""
     special_characters = (
